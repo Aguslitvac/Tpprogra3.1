@@ -3,10 +3,10 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/screens/Login';
-import Register from './src/screens/Register';
 import HomeMenu from './src/components/HomeMenu';
 import Home from './src/screens/Home';
-import Profile from './src/screens/Profile';
+import Register from "./src/screens/Register";
+import Profile from "./src/screens/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +14,13 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+
+   
+    
+                  
+             
+
+
    <NavigationContainer>
      <Stack.Navigator>
         <Stack.Screen name="Login" component={ Login } options={ {headerShown: false} }/>
@@ -25,5 +32,9 @@ export default function App() {
 
      </Stack.Navigator>
    </NavigationContainer>
+
+ 
+
+
 );
 }
