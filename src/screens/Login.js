@@ -19,9 +19,12 @@ class Login extends Component {
                 this.props.navigation.navigate('HomeMenu');
             })
             .catch(error => {
-                this.setState({ error: error.message });
-            });
+                this.setState({ error: "Datos ingresados incorrectos"});
+            }); 
     }
+    
+    
+
 
     onSubmit() {
         this.login(this.state.email, this.state.pass);
