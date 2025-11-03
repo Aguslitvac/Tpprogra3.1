@@ -21,7 +21,12 @@ class HomeMenu extends Component {
                     component={Home}
                     options={ { headerShown: false } }
                     />
-
+                
+                <Tab.Screen
+                    name="CrearPubli"
+                    component={CrearPubli}
+                    options={ { headerShown: false } }
+                    />
 
                 <Tab.Screen
                     name="Profile"
