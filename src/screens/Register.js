@@ -1,6 +1,6 @@
 import react, { Component } from "react";
 import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 
 class Register extends Component {
   constructor(props) {
@@ -8,17 +8,34 @@ class Register extends Component {
     this.state = {
       email: '',
       pass: '',
-      registered: false,
       error: '',
       user: ''
     };
   }
 
+   componentDidMount() {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                this.props.navigation.navigate('HomeMenu');
+            }
+
+
+        })}
+
+        
   register(email, pass, user) {
     auth
       .createUserWithEmailAndPassword(email, pass)
+      .then(() => {
+        db.collection('users' ).add({
+          email: email,
+          userName: user,
+        });
+      })
+
+
       .then(response => {
-        this.setState({ registered: true, error: '' });
+        this.setState({error: '' });
         this.props.navigation.navigate('Login');
       })
       .catch(error => {
@@ -38,8 +55,6 @@ class Register extends Component {
   }
 
 
-
-  // aca tenemos que crear la coleccion
 
   
   render() {

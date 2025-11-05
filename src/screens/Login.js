@@ -11,28 +11,37 @@ class Login extends Component {
             error: ''
         };
     }
+    componentDidMount() {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                this.props.navigation.navigate('HomeMenu');
+            }
+
+
+        })}
+
 
     login(email, pass) {
-        auth.signInWithEmailAndPassword(email, pass)
-            .then(response => {
-                this.setState({ error: '' });
-                this.props.navigation.navigate('HomeMenu');
-            })
-            .catch(error => {
-                this.setState({ error: "Datos ingresados incorrectos"});
-            }); 
-    }
+            auth.signInWithEmailAndPassword(email, pass)
+                .then(response => {
+                    this.setState({ error: '' });
+                    this.props.navigation.navigate('HomeMenu');
+                })
+                .catch(error => {
+                    this.setState({ error: "Datos ingresados incorrectos" });
+                });
+        }
     
     
 
 
     onSubmit() {
-        this.login(this.state.email, this.state.pass);
-    }
+            this.login(this.state.email, this.state.pass);
+        }
 
     render() {
-        return (
-            <View style={styles.container}>
+            return(
+            <View style = { styles.container } >
                 <Text style={styles.title}>Formulario de Login</Text>
 
                 <TextInput
@@ -51,20 +60,21 @@ class Login extends Component {
                     value={this.state.pass}
                 />
 
-                {this.state.error 
+                { this.state.error
                 ? (
                     <Text style={styles.error}>{this.state.error}</Text>
-                ) 
-                : null}
+                )
+                : null
+        }
 
-                <Pressable style={styles.button} onPress={() => this.onSubmit()}>
-                    <Text style={styles.buttonText}>Entrar en la App</Text>
-                </Pressable>
+        < Pressable style = { styles.button } onPress = {() => this.onSubmit()}>
+            <Text style={styles.buttonText}>Entrar en la App</Text>
+                </Pressable >
 
-                <Pressable onPress={() => this.props.navigation.navigate('Register')}>
-                    <Text style={styles.link}>¿No tenés cuenta? Ir a Registro</Text>
-                </Pressable>
-            </View>
+    <Pressable onPress={() => this.props.navigation.navigate('Register')}>
+        <Text style={styles.link}>¿No tenés cuenta? Ir a Registro</Text>
+    </Pressable>
+            </View >
         );
     }
 }
