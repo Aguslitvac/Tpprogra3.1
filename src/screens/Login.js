@@ -13,7 +13,8 @@ class Login extends Component {
     }
     componentDidMount() {
         auth.onAuthStateChanged(user => {
-            if (user) {
+            console.log(user)
+            if (user != null) {
                 this.props.navigation.navigate('HomeMenu');
             }
 

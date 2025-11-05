@@ -1,51 +1,51 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Pressable, FlatList, Alert } from 'react-native';
+import { auth, db } from '../firebase/config';
+import Post from '../components/Post';
 
-const User = {
-  Name: 'Usuario App', 
-  email: 'usuario@app.com',
-};
 
-let Posts = [
-  { id: 'a1', text: 'Mi primer post.', date: '01/11/2025' },
-  { id: 'a2', text: 'Segundo intento.', date: '02/11/2025' },
-];
 
 class Profile extends Component {
   constructor(props) {
     super(props);
    
     this.state = {
-      currentUser: { ...User, displayName: User.Name }, 
-      posts: Posts,
+      currentUser: {}, 
+      posts: [],
     };
+  }
+
+  componentDidMount() {
+
+    db.collection("users").where("email", "==", auth.currentUser.email).onSnapshot(data => {
+      data.forEach(element => {
+        this.setState({currentUser: element.data()})
+      });
+    })
+    db.collection("posts").where("email", "==", auth.currentUser.email).onSnapshot(data => {
+      let posteos = []
+      data.forEach(element => {
+        posteos.push({id: element.id, data: element.data()})
+      }); 
+      posteos.sort((a , b) => b.data.createdAt - a.data.createdAt) //Para ordenar los posteos de mas nuevo a mas viejo
+      console.log(posteos)
+      this.setState({posts: posteos})
+    })
   }
 
   deletePost = (postId) => {
     
-    const updatedPosts = this.state.posts.filter(post => post.id !== postId);
-    this.setState({ posts: updatedPosts });
+    db.collection("posts").doc(postId).delete()
+    .then(() => console.log("se borro el documento de ID " + postId))
   };
   
- 
+ logOut(){
+  auth.signOut()
+  .then(() => this.props.navigation.navigate('Login'))
+ }
    
  
-  
 
-  renderPostItem = ({ item }) => (
-    <View style={styles.postCard}>
-      <View style={styles.postInfo}>
-        <Text style={styles.postText}>{item.text}</Text>
-        <Text style={styles.postDate}>{item.date}</Text>
-      </View>
-      <Pressable
-        style={styles.deleteBtn}
-        onPress={() => this.deletePost(item.id)}
-      >
-        <Text style={styles.deleteTxt}>X</Text>
-      </Pressable>
-    </View>
-  );
 
   render() {
     const { currentUser, posts } = this.state;
@@ -54,23 +54,24 @@ class Profile extends Component {
       <View style={styles.container}>
 
         <View style={styles.userBox}>
-          <Text style={styles.nameTxt}>{currentUser.displayName}</Text>
+          <Text style={styles.nameTxt}>{currentUser.userName}</Text>
           <Text style={styles.emailTxt}>{currentUser.email}</Text>
         </View>
 
         <Text style={styles.listTitle}>Tus Publicaciones</Text>
         
         <FlatList
-          data={posts}
-          renderItem={this.renderPostItem}
-          keyExtractor={item => item.id}
+          data={this.state.posts}
+          renderItem={({item}) => <Post data = {item.data} origen = "perfil" id = {item.id} deletePost = {(idposteo) => this.deletePost(idposteo)}/>}
+          keyExtractor={(item) => item.id.toString()}
           style={styles.list}
-        />
+
+        /> 
 
         
         <Pressable 
           style={styles.logoutButton} 
-          onPress={() => this.props.navigation.navigate('Login')}> 
+          onPress={() => this.logOut()}> 
           <Text style={styles.logoutText}>Cerrar Sesión</Text>
         </Pressable>
       </View>
