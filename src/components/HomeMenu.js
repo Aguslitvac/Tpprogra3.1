@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import Posting from "../screens/Posting";
+import Anidada from "./Anidada";
 
 
 const Tab = createBottomTabNavigator();
@@ -18,8 +19,8 @@ class HomeMenu extends Component {
             <Tab.Navigator>
 
                 <Tab.Screen
-                    name="Home"
-                    component={Home}
+                    name="Anidada"
+                    component={Anidada}
                     options={ { headerShown: false } }
                     />
                 
