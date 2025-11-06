@@ -27,8 +27,7 @@ class Profile extends Component {
       data.forEach(element => {
         posteos.push({id: element.id, data: element.data()})
       }); 
-      posteos.sort((a , b) => b.data.createdAt - a.data.createdAt) //Para ordenar los posteos de mas nuevo a mas viejo
-      console.log(posteos)
+    
       this.setState({posts: posteos})
     })
   }
