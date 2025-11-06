@@ -1,34 +1,100 @@
 import { Component } from "react";
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { auth, db } from '../firebase/config';
+import firebase from 'firebase/app';
 
 class Post extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
+  constructor(props) {
+    super(props)
+    this.state = {
+       likes: [],
+    }
+  }
+  componentDidMount() {
+    console.log(this.props)
+    this.setState({ likes: this.props.data.likes });
 
+  }
+
+
+likear() {
+  const userEmail = auth.currentUser.email;
+  const { id } = this.props;
+  const likesActuales = this.state.likes;
+
+  const yaLikeo = likesActuales.includes(userEmail);
+
+  if (yaLikeo == false) {
+    db.collection('posts')
+      .doc(id)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayUnion(userEmail)
+      })
+      .then(() => {
+        let nuevosLikes = [];
+
+        for (let i = 0; i < likesActuales.length; i++) {
+          nuevosLikes.push(likesActuales[i]);
         }
-    }
-    componentDidMount() {
-        console.log(this.props)
-    }
-    render(){
-        return(
-            <View style={styles.postCard}>
-                  <View style={styles.postInfo}>
-                    <Text style={styles.postText}>{this.props.data.texto}</Text>
-                    <Text style={styles.postDate}>{this.props.data.createdAt}</Text>
-                    <Text style={styles.postDate}>{this.props.data.email}</Text>
-                  </View>
-                  {this.props.origen == "perfil" ? 
-                  <Pressable
-                    style={styles.deleteBtn}
-                    onPress={() => this.props.deletePost(this.props.id)}
-                  >
-                    <Text style={styles.deleteTxt}>X</Text>
-                  </Pressable> : null }
-                </View>
-        )
-    }
+
+        nuevosLikes.push(userEmail);
+
+        this.setState({ likes: nuevosLikes });
+      })
+      .catch(e => console.log('Error al likear:', e));
+  } else {
+    db.collection('posts')
+      .doc(id)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayRemove(userEmail)
+      })
+      .then(() => {
+        const nuevosLikes = likesActuales.filter(email => email != userEmail);
+        this.setState({ likes: nuevosLikes });
+      })
+      .catch(e => console.log('Error al deslikear:', e));
+  }
+}
+
+  render() {
+    return (
+      <View style={styles.postCard}>
+        <View style={styles.postInfo}>
+          <Text style={styles.postText}>{this.props.data.texto}</Text>
+          <Text style={styles.postDate}>{this.props.data.createdAt}</Text>
+          <Text style={styles.postDate}>{this.props.data.email}</Text>
+
+
+        </View>
+        {this.props.origen == "perfil" ?
+          <Pressable
+            style={styles.deleteBtn}
+            onPress={() => this.props.deletePost(this.props.id)}
+          >
+            <Text style={styles.deleteTxt}>X</Text>
+          </Pressable> : null}
+
+        
+
+{this.props.origen == "home" ? (
+  <Pressable  onPress={() => this.likear()}>
+    <Text >
+       ME GUSTA
+    </Text>
+  </Pressable>
+) : null}
+
+{this.props.origen == "home" ? (
+  <Text style={styles.postDate}>
+    Likes: {this.state.likes.length}
+  </Text>
+) : null}
+
+      </View>
+
+
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     padding: 15,
   },
-  
+
   userBox: {
     padding: 20,
     backgroundColor: '#F0F0F0',
@@ -88,7 +154,7 @@ const styles = StyleSheet.create({
     color: '#999',
     marginTop: 4,
   },
-  
+
   deleteBtn: {
     backgroundColor: 'red',
     width: 30,
@@ -104,14 +170,14 @@ const styles = StyleSheet.create({
   },
 
   logoutButton: {
-    backgroundColor: 'black', 
+    backgroundColor: 'black',
     padding: 15,
     borderRadius: 8,
     marginTop: 20,
     alignItems: 'center',
   },
   logoutText: {
-    color: 'white', 
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
