@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase/app';
 
+
 class Post extends Component {
   constructor(props) {
     super(props)
@@ -90,6 +91,14 @@ likear() {
   </Text>
 ) : null}
 
+
+{this.props.origen == "home" ? (
+  <Pressable  onPress={() => this.props.navigation.navigate('Comentar')}>
+    <Text >
+       COMENTAR
+    </Text>
+  </Pressable>
+) : null}
       </View>
 
 

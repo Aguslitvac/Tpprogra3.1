@@ -10,8 +10,11 @@ class Home extends Component {
     this.state = {
       currentUser: {}, 
       posts: [],
+    
     };
   }
+
+   
 
   componentDidMount() {
 

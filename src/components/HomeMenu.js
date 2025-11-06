@@ -19,7 +19,7 @@ class HomeMenu extends Component {
             <Tab.Navigator>
 
                 <Tab.Screen
-                    name="Anidada"
+                    name="Home"
                     component={Anidada}
                     options={ { headerShown: false } }
                     />
