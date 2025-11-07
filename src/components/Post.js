@@ -93,7 +93,7 @@ likear() {
 
 
 {this.props.origen == "home" ? (
-  <Pressable  onPress={() => this.props.navigation.navigate('Comentar')}>
+  <Pressable  onPress={() => this.props.navigation.navigate('Comentar', {postId: this.props.id})}>
     <Text >
        COMENTAR
     </Text>

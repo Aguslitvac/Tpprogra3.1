@@ -54,9 +54,8 @@ class Home extends Component {
         
         <FlatList
           data={this.state.posts}
-          renderItem={({item}) => <Post data = {item.data} origen = "home" id = {item.id} />}
+          renderItem={({item}) => <Post data = {item.data} origen = "home" id = {item.id} navigation={this.props.navigation}/>}
           keyExtractor={(item) => item.id.toString()}
-          
           style={styles.list}
 
         /> 
