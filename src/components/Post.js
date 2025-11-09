@@ -58,6 +58,8 @@ likear() {
 }
 
   render() {
+    const likesActuales = this.state.likes;
+    const yaLikeo = likesActuales.includes(auth.currentUser.email);
     return (
       <View style={styles.postCard}>
         <View style={styles.postInfo}>
@@ -80,7 +82,8 @@ likear() {
 {this.props.origen == "home" ? (
   <Pressable  onPress={() => this.likear()}>
     <Text >
-       ME GUSTA
+      
+       {yaLikeo ?"sacar like":"likear"}
     </Text>
   </Pressable>
 ) : null}
@@ -93,7 +96,7 @@ likear() {
 
 
 {this.props.origen == "home" ? (
-  <Pressable  onPress={() => this.props.navigation.navigate('Comentar', {postId: this.props.id})}>
+  <Pressable  onPress={() => this.props.navigation.navigate('Comentar', {postId: this.props.id , data:this.props.data})}>
     <Text >
        COMENTAR
     </Text>

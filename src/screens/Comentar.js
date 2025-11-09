@@ -21,6 +21,7 @@ class Comentar extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     db.collection("posts").doc(this.state.postId).collection("comments").get().then((data) => {
         let listaComentarios = [];
         data.forEach(element => {
@@ -51,6 +52,10 @@ class Comentar extends Component {
     return (
       <View style={styles.pantalla}>
         <Text style={styles.titulo}>Comentarios</Text>
+
+        <Text style={styles.postText}>{this.props.route.params.data.texto}</Text>
+                  <Text style={styles.postDate}>{this.props.route.params.data.createdAt}</Text>
+                  <Text style={styles.postDate}>{this.props.route.params.data.email}</Text>
 
         <FlatList
           data={this.state.comentarios}
