@@ -47,7 +47,7 @@ class Home extends Component {
       <View style={styles.container}>
 
         <View style={styles.userBox}>
-                    <Text style={styles.nameTxt}>Home Page</Text>
+                    <Text style={styles.nameTxt}>Sportify</Text>
 
         </View>
 
@@ -71,13 +71,12 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#87CEEB',
     padding: 15,
   },
   
   userBox: {
     padding: 20,
-    backgroundColor: '#F0F0F0',
     borderRadius: 8,
     marginBottom: 20,
     alignItems: 'center',
@@ -91,6 +90,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+
+
+
+
 
   listTitle: {
     fontSize: 18,

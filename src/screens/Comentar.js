@@ -51,11 +51,13 @@ class Comentar extends Component {
   render() {
     return (
       <View style={styles.pantalla}>
+                  <Text style={styles.sporti}>Sportify</Text>
+        
         <Text style={styles.titulo}>Comentarios</Text>
 
+
         <Text style={styles.postText}>{this.props.route.params.data.texto}</Text>
-                  <Text style={styles.postDate}>{this.props.route.params.data.createdAt}</Text>
-                  <Text style={styles.postDate}>{this.props.route.params.data.email}</Text>
+                  <Text style={styles.usuario}>{this.props.route.params.data.email}</Text>
 
         <FlatList
           data={this.state.comentarios}
@@ -85,43 +87,95 @@ class Comentar extends Component {
 }
 
 const styles = StyleSheet.create({
-  pantalla: { 
-    flex: 1, 
-    backgroundColor: "#fff", 
-    padding: 15 
-    },
-  titulo: { 
-    fontSize: 20, 
-    fontWeight: "bold", 
-    marginBottom: 10 
-    },
-  cajaComentario: { 
-    padding: 10, 
-    borderBottomWidth: 1, 
-    borderColor: "#eee" 
-    },
-  nombreUsuario: { 
-    fontWeight: "bold" 
-    },
-  cajaInput: { 
-    flexDirection: "row", 
-    marginTop: 10 
-    },
+  pantalla: {
+    flex: 1,
+    backgroundColor: "#87CEEB",
+    padding: 15,
+  },
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+  postText: {
+    backgroundColor: "rgba(255,255,255,0.9)",
+    padding: 15,
+    borderRadius: 10,
+    fontSize: 16,
+    marginBottom: 5,
+    
+  },
+
+
+  sporti: {
+    padding: 15,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: "center"
+
+  },
+
+
+  usuario: {
+    color: "#333",
+    fontSize: 13,
+    marginBottom: 10,
+    textAlign: "right",
+    fontStyle: "italic",
+  },
+
+  cajaComentario: {
+    backgroundColor: "#fff",
+    padding: 12,
+    borderRadius: 8,
+    
+  },
+
+  nombreUsuario: {
+    fontWeight: "bold",
+    color: "#1E90FF",
+    marginBottom: 3,
+  },
+
+  cajaInput: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 15,
+    backgroundColor: "rgba(255,255,255,0.9)",
+    borderRadius: 8,
+    padding: 8,
+    
+  },
+
   campoTexto: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    paddingHorizontal: 10,
+    borderColor: "#ddd",
+    borderRadius: 8,
+    fontSize: 15,
+    padding: 5
   },
+
   botonEnviar: {
-    backgroundColor: "black",
-    marginLeft: 5,
-    borderRadius: 5,
-    paddingHorizontal: 10,
+    backgroundColor: "#1E90FF",
+    marginLeft: 8,
+    borderRadius: 8,
     justifyContent: "center",
+    padding: 10
+  
   },
-  textoBoton: { color: "white", fontWeight: "bold" },
+
+  textoBoton: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
 });
+
 
 export default Comentar;

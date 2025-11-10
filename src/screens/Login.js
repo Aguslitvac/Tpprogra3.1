@@ -43,7 +43,9 @@ class Login extends Component {
     render() {
             return(
             <View style = { styles.container } >
-                <Text style={styles.title}>Formulario de Login</Text>
+                          <Text style={styles.sporti}>Sportify</Text>
+                
+                <Text style={styles.title}>Login</Text>
 
                 <TextInput
                     style={styles.input}
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#87CEEB',
     },
     title: {
         fontSize: 22,
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#ddd',
         padding: 10,
         marginBottom: 15,
         borderRadius: 5
@@ -120,7 +122,17 @@ const styles = StyleSheet.create({
         color: 'red',
         marginBottom: 10,
         textAlign: 'center'
-    }
+    },
+
+
+    sporti: {
+    padding: 15,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: "center"
+
+  },
 });
 
 export default Login;

@@ -40,6 +40,8 @@ class Posting extends Component {
     render() {
         return (
             <View style={styles.contenedor}>
+                          <Text style={styles.sporti}>Sportify</Text>
+                
                 <Text style={styles.titulo}>Publicación Nueva</Text>
 
                 <TextInput
@@ -66,9 +68,20 @@ class Posting extends Component {
 const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#87CEEB',
         padding: 25,
     },
+
+    sporti: {
+    padding: 15,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: "center"
+
+  },
+
+
     titulo: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -78,7 +91,7 @@ const styles = StyleSheet.create({
     },
     campoTexto: {
         width: '100%',
-        height: 180,
+        height: 120,
         backgroundColor: '#FFFFFF',
         borderRadius: 8,
         padding: 15,

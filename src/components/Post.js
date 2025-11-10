@@ -75,24 +75,24 @@ likear() {
 
 {this.props.origen == "home" ? (
   <Pressable  onPress={() => this.likear()}>
-    <Text >
+    <Text style={styles.logos} >
       
-       {yaLikeo ?"sacar like":"likear"}
+       {yaLikeo ?"❤️":"🖤"}
     </Text>
   </Pressable>
 ) : null}
 
 {this.props.origen == "home" ? (
-  <Text style={styles.postDate}>
-    Likes: {this.state.likes.length}
+    <Text style={styles.logos} >
+     {this.state.likes.length}
   </Text>
 ) : null}
 
 
 {this.props.origen == "home" ? (
   <Pressable  onPress={() => this.props.navigation.navigate('Comentar', {postId: this.props.id , data:this.props.data})}>
-    <Text >
-       COMENTAR
+    <Text style={styles.com} >
+       💬
     </Text>
   </Pressable>
 ) : null}
@@ -187,6 +187,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+
+  com:{
+    padding: 20
+  },
+
+  logos:{
+    padding: 3
+  }
 });
 
 export default Post;

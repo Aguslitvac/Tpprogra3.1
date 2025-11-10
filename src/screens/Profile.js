@@ -51,6 +51,7 @@ class Profile extends Component {
 
     return (
       <View style={styles.container}>
+          <Text style={styles.sporti}>Sportify</Text>
 
         <View style={styles.userBox}>
           <Text style={styles.nameTxt}>{currentUser.userName}</Text>
@@ -81,10 +82,18 @@ class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#87CEEB',
     padding: 15,
   },
-  
+   sporti: {
+    padding: 15,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: "center"
+
+  },
+
   userBox: {
     padding: 20,
     backgroundColor: '#F0F0F0',
@@ -151,7 +160,7 @@ const styles = StyleSheet.create({
   },
 
   logoutButton: {
-    backgroundColor: 'black', 
+    backgroundColor: '#007AFF', 
     padding: 15,
     borderRadius: 8,
     marginTop: 20,

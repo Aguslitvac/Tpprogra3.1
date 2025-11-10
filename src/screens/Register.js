@@ -53,7 +53,9 @@ class Register extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Formulario de Registro</Text>
+                  <Text style={styles.sporti}>Sportify</Text>
+        
+        <Text style={styles.title}>Registro</Text>
 
         <TextInput
           style={styles.input}
@@ -102,8 +104,19 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#87CEEB'
   },
+
+  sporti: {
+    padding: 15,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: "center"
+
+  },
+
+
   title: {
     fontSize: 22,
     marginBottom: 20,
@@ -111,7 +124,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#ddd',
     padding: 10,
     marginBottom: 15,
     borderRadius: 5
