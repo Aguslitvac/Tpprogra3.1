@@ -25,36 +25,31 @@ likear() {
 
   const yaLikeo = likesActuales.includes(userEmail);
 
-  if (yaLikeo == false) {
-    db.collection('posts')
-      .doc(id)
-      .update({
-        likes: firebase.firestore.FieldValue.arrayUnion(userEmail)
-      })
-      .then(() => {
-        let nuevosLikes = [];
-
-        for (let i = 0; i < likesActuales.length; i++) {
-          nuevosLikes.push(likesActuales[i]);
-        }
-
-        nuevosLikes.push(userEmail);
-
-        this.setState({ likes: nuevosLikes });
-      })
-      .catch(e => console.log('Error al likear:', e));
-  } else {
-    db.collection('posts')
-      .doc(id)
-      .update({
-        likes: firebase.firestore.FieldValue.arrayRemove(userEmail)
-      })
-      .then(() => {
-        const nuevosLikes = likesActuales.filter(email => email != userEmail);
-        this.setState({ likes: nuevosLikes });
-      })
-      .catch(e => console.log('Error al deslikear:', e));
-  }
+  yaLikeo
+    ? db.collection('posts')
+        .doc(id)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayRemove(userEmail),
+        })
+        .then(() => {
+          const nuevosLikes = likesActuales.filter(email => email != userEmail);
+          this.setState({ likes: nuevosLikes });
+        })
+        .catch(error => console.log('Error al deslikear:', error))
+    : db.collection('posts')
+        .doc(id)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayUnion(userEmail),
+        })
+        .then(() => {
+          let nuevosLikes = [];
+          likesActuales.forEach(email => {
+            nuevosLikes.push(email);
+          });
+          nuevosLikes.push(userEmail);
+          this.setState({ likes: nuevosLikes });
+        })
+        .catch(error => console.log('Error al likear:', error));
 }
 
   render() {
@@ -64,7 +59,6 @@ likear() {
       <View style={styles.postCard}>
         <View style={styles.postInfo}>
           <Text style={styles.postText}>{this.props.data.texto}</Text>
-          <Text style={styles.postDate}>{this.props.data.createdAt}</Text>
           <Text style={styles.postDate}>{this.props.data.email}</Text>
 
 

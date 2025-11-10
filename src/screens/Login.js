@@ -57,6 +57,7 @@ class Login extends Component {
                     style={styles.input}
                     keyboardType='default'
                     placeholder='Contraseña'
+                    secureTextEntry={true}
                     onChangeText={text => this.setState({ pass: text })}
                     value={this.state.pass}
                 />

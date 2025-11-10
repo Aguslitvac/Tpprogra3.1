@@ -13,14 +13,7 @@ class Register extends Component {
     };
   }
 
-   componentDidMount() {
-        auth.onAuthStateChanged(user => {
-            if (user != null) {
-                this.props.navigation.navigate('HomeMenu');
-            }
-
-
-        })}
+  
 
         
   register(email, pass, user) {
